@@ -1,0 +1,435 @@
+---
+
+# 🔥 1. What is a Constructor?
+
+## 📌 Theory
+
+A **constructor** is a special method used to **initialize an object when it is created**.
+
+* It runs **automatically** when you create an object using `new`
+* It helps assign **initial values** to instance variables
+
+---
+
+## 📌 Code Example
+
+```java
+class Car {
+    String model;
+
+    Car() {
+        model = "Default Model";
+    }
+
+    void display() {
+        System.out.println(model);
+    }
+
+    public static void main(String[] args) {
+        Car c = new Car();
+        c.display();
+    }
+}
+```
+
+👉 Output:
+
+```
+Default Model
+```
+
+---
+
+# 🔥 2. Key Characteristics (Theory + Code Insight)
+
+### ✅ Same name as class
+
+```java
+class Test {
+    Test() {}   // correct
+}
+```
+
+---
+
+### ❌ No return type
+
+```java
+void Test() {}   // ❌ not a constructor (it's a method)
+```
+
+---
+
+### ✅ Called automatically
+
+```java
+Test t = new Test();  // constructor called here
+```
+
+---
+
+# 🔥 3. Types of Constructors
+
+---
+
+## 1️⃣ Default Constructor (Compiler Provided)
+
+### 📌 Theory
+
+* Added by compiler if **no constructor exists**
+* Initializes variables with **default values**
+
+---
+
+### 📌 Code
+
+```java
+class Student {
+    int id;
+
+    public static void main(String[] args) {
+        Student s = new Student();
+        System.out.println(s.id);  // 0
+    }
+}
+```
+
+---
+
+## 2️⃣ No-Argument Constructor (User Defined)
+
+### 📌 Theory
+
+* Written by programmer
+* No parameters
+* Can contain logic
+
+---
+
+### 📌 Code
+
+```java
+class Student {
+    Student() {
+        System.out.println("Student Created");
+    }
+
+    public static void main(String[] args) {
+        new Student();
+    }
+}
+```
+
+---
+
+## 3️⃣ Parameterized Constructor
+
+### 📌 Theory
+
+* Accepts parameters
+* Used to initialize variables with custom values
+
+---
+
+### 📌 Code
+
+```java
+class Student {
+    int id;
+    String name;
+
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    void display() {
+        System.out.println(id + " " + name);
+    }
+
+    public static void main(String[] args) {
+        Student s = new Student(1, "Mansi");
+        s.display();
+    }
+}
+```
+
+---
+
+## 4️⃣ Copy Constructor (User Defined)
+
+### 📌 Theory
+
+* Copies values from another object
+* Not built-in in Java
+
+---
+
+### 📌 Code
+
+```java
+class Student {
+    int id;
+
+    Student(int id) {
+        this.id = id;
+    }
+
+    Student(Student s) {
+        this.id = s.id;
+    }
+
+    public static void main(String[] args) {
+        Student s1 = new Student(10);
+        Student s2 = new Student(s1);
+
+        System.out.println(s2.id);
+    }
+}
+```
+
+---
+
+## 5️⃣ Private Constructor
+
+### 📌 Theory
+
+* Prevents object creation from outside class
+* Used in **Singleton pattern**
+
+---
+
+### 📌 Code
+
+```java
+class Singleton {
+    private Singleton() {
+        System.out.println("Private Constructor");
+    }
+
+    static Singleton getInstance() {
+        return new Singleton();
+    }
+
+    public static void main(String[] args) {
+        Singleton s = Singleton.getInstance();
+    }
+}
+```
+
+---
+
+# 🔥 4. Constructor Overloading
+
+### 📌 Theory
+
+* Multiple constructors with different parameters
+
+---
+
+### 📌 Code
+
+```java
+class Test {
+    Test() {
+        System.out.println("No-arg");
+    }
+
+    Test(int a) {
+        System.out.println("One param");
+    }
+
+    Test(int a, int b) {
+        System.out.println("Two params");
+    }
+
+    public static void main(String[] args) {
+        new Test();
+        new Test(10);
+        new Test(10, 20);
+    }
+}
+```
+
+---
+
+# 🔥 5. Constructor Chaining (VERY IMPORTANT)
+
+---
+
+## 🔹 Using `this()`
+
+### 📌 Theory
+
+* Calls another constructor of same class
+* Must be **first statement**
+
+---
+
+### 📌 Code
+
+```java
+class Test {
+    Test() {
+        this(10);
+        System.out.println("Default");
+    }
+
+    Test(int x) {
+        System.out.println("Parameterized: " + x);
+    }
+
+    public static void main(String[] args) {
+        new Test();
+    }
+}
+```
+
+👉 Output:
+
+```
+Parameterized: 10
+Default
+```
+
+---
+
+## 🔹 Using `super()`
+
+### 📌 Theory
+
+* Calls parent class constructor
+* Used in inheritance
+
+---
+
+### 📌 Code
+
+```java
+class A {
+    A() {
+        System.out.println("A Constructor");
+    }
+}
+
+class B extends A {
+    B() {
+        super();
+        System.out.println("B Constructor");
+    }
+
+    public static void main(String[] args) {
+        new B();
+    }
+}
+```
+
+👉 Output:
+
+```
+A Constructor
+B Constructor
+```
+
+---
+
+# 🔥 6. Constructor vs Method
+
+| Feature     | Constructor   | Method     |
+| ----------- | ------------- | ---------- |
+| Name        | Same as class | Any name   |
+| Return type | ❌ None        | ✅ Required |
+| Call        | Automatic     | Manual     |
+
+---
+
+# 🔥 7. Execution Flow (IMPORTANT)
+
+### 📌 Theory
+
+* Parent constructor executes first
+* Then child constructor
+
+---
+
+### 📌 Code
+
+```java
+class Parent {
+    Parent() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    Child() {
+        System.out.println("Child");
+    }
+
+    public static void main(String[] args) {
+        new Child();
+    }
+}
+```
+
+👉 Output:
+
+```
+Parent
+Child
+```
+
+---
+
+# 🔥 8. Important Rules
+
+* Cannot be **inherited**
+* Cannot be **overridden**
+* Can be **overloaded**
+* Cannot be:
+
+  * static
+  * final
+  * abstract
+
+---
+
+# 🔥 9. Common Interview Edge Cases
+
+---
+
+### ❗ No default constructor if parameterized exists
+
+```java
+class Test {
+    Test(int a) {}
+}
+
+// new Test(); ❌ ERROR
+```
+
+---
+
+### ❗ Constructor in abstract class
+
+```java
+abstract class A {
+    A() {
+        System.out.println("Abstract constructor");
+    }
+}
+```
+
+---
+
+### ❗ Interface cannot have constructor
+
+👉 Because no object creation
+
+---
+
+# 🎯 Final Interview Summary
+
+> A constructor in Java is a special method used to initialize objects. It has no return type and is called automatically during object creation. It can be default, parameterized, or user-defined, supports overloading and chaining using this() and super(), but cannot be inherited or overridden.
+
+---
