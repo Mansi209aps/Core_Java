@@ -1,0 +1,50 @@
+1. Formatted Output in Java using printf()
+
+// Java Programs to demonstrate
+// Use of Printf() for decimal
+// Number Formatting
+import java.io.*;
+
+// Driver Class
+class GFG {
+    // main function
+    public static void main(String[] args)
+    {
+        // declaring double
+        double a = 3.14159265359;
+
+        // Printing Double Value with
+        // different Formatting
+        System.out.printf("%f\n", a);
+        System.out.printf("%5.3f\n", a);
+        System.out.printf("%5.2f\n", a);
+    }
+}
+
+Explanation:
+System.out.printf("%5.3f\n", a);
+%5.3f means:
+5 → Minimum width of total output
+.3 → 3 digits after decimal
+
+Output
+3.142
+
+2. To Store Formatted Output
+
+float val = Float.parseFloat(String.format("%.2f", a));
+OR
+float val = (float) (Math.round(a * 100.0) / 100.0);
+
+How it Works
+a * 100     → 314.159...
+Math.round  → 314
+/ 100       → 3.14
+
+General Formula
+float val = (float) (Math.round(a * Math.pow(10, n)) / Math.pow(10, n));
+n = number of decimal places
+
+⚠️ Important Note
+float has limited precision (~6–7 digits)
+For better accuracy → prefer double
